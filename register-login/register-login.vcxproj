@@ -19,7 +19,14 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="register_login_component.cpp" />
+    <ClCompile Include="Account.cpp" />
+    <ClCompile Include="RegisterLoginComponent.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="accounts.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Account.hpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
