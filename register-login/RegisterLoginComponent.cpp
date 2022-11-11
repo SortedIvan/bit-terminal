@@ -4,6 +4,7 @@
 #include <thread>
 #include <fstream>
 #include <time.h>
+#include <vector>
 
 // Header imports
 #include "Account.hpp"
@@ -20,11 +21,22 @@ void Clear(); // Clears terminal based on operating system
 void Register(string username, string password);
 int GenerateRandomAsciiAlphabet();
 string GenerateRandomId(int length);
+bool Login(string username, string password);
+std::tuple<string, string> PromptLogin();
+bool CheckCredentials(string username, string password, std::vector<string> credentials);
 
 int main() 
 {
 	StartUpBitTerminal();
 	Register("Vankata", "12345");
+	std::tuple<string, string> credentials = PromptLogin();
+
+	if (Login(std::get<0>(credentials), std::get<1>(credentials))) {
+		cout << "Login succesful";
+		return 0;
+	}
+	cout << "Login unsuccesful";
+	return 0;
 }
 
 int GetStringLen(string string_to_read)
@@ -69,35 +81,69 @@ void Register(string username, string password)
 	string account_id(GenerateRandomId(10));
 	std::ofstream account_file;
 	account_file.open("accounts.txt");
-	account_file << "ACCOUNT_ID:" << account_id << ", ";
-	account_file << "ACCOUNT_USERNAME:" << username << ", ";
+	account_file << "ACCOUNT_ID:" << account_id << ",";
+	account_file << "ACCOUNT_USERNAME:" << username << ",";
 	account_file << "ACCOUNT_PASSWORD:" << password << '\n';
 	account_file.close();
 }
 
 bool Login(string username, string password) {
 	string line;
-	std::ifstream account_file ("account.txt");
+	std::ifstream account_file;
+	account_file.open("accounts.txt");
+
 	if (account_file.is_open())
 	{
 		while (getline(account_file, line))
 		{
-			if 
+			string delimiter = ","; // Comma seperated values, seperator
+			std::vector<string> credentials; // Storing the credentials here
+			size_t last = 0; 
+			size_t next = 0; 
+			while ((next = line.find(delimiter, last)) != std::string::npos) 
+			{ 
+				//std::cout << line.substr(last, next - last) << std::endl; 
+				credentials.push_back(line.substr(last, next - last));
+				last = next + 2; 
+			} 
+			credentials.push_back(line.substr(last)); // Getting the last element for credentials
 
-			cout << line << '\n';
+			for (int i = 0; i < credentials.size(); i++)
+			{
+				string credential = credentials[i].substr(credentials[i].find(":") + 1); // Seperating credential value from credential specifier
+				credentials[i] = credential; // Reusing credentials vector to store actual value
+			}
+			
+			if (CheckCredentials(username, password, credentials)) 
+			{
+				account_file.close();
+				return true;
+			}
 		}
-		myfile.close();
+		account_file.close();
 	}
+	return false;
 }
 
-bool CheckCredentials(string username, string password)
+std::tuple<string, string> PromptLogin() {
+	string username = "";
+	string password = "";
+	std::tuple <string, string> credentials;
+	cout << "Enter username: ";
+	cin >> username;
+	cout << "Enter password: ";
+	cin >> password;
+	credentials = std::make_tuple(username, password);
+	return credentials;
+}
+
+bool CheckCredentials(string username, string password, std::vector<string> credentials)
 {
-	bool username_valid, password_valid;
-	string username_temp, password_temp;
-	for (int i = 0; i < GetStringLen(username); i++)
+	if (credentials[1] == username && credentials[2] == password)
 	{
-		if ()
+		return true;
 	}
+	return false;
 }
 
 
@@ -119,6 +165,7 @@ int GenerateRandomAsciiAlphabet()
 	srand((unsigned int)time(NULL));
 	return (rand() % 25 + 97);
 }
+
 string GenerateRandomId(int length)
 {
 	// 97 - 122
