@@ -18,11 +18,17 @@
       <Platform>x64</Platform>
     </ProjectConfiguration>
   </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\TextEditing.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\TextEditing.h" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
-    <ProjectGuid>{a0a2ee78-4ce8-4f75-bbd7-5dac73d8948e}</ProjectGuid>
-    <RootNamespace>Account</RootNamespace>
+    <ProjectGuid>{c611fc93-e25d-4701-a4f2-7ca6b18afa10}</ProjectGuid>
+    <RootNamespace>TextEditor</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -138,21 +144,6 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
   </ItemDefinitionGroup>
-  <ItemGroup>
-    <ClCompile Include="src\Account.cpp" />
-    <ClCompile Include="src\Menu.cpp" />
-    <ClCompile Include="src\RegisterLogin.cpp" />
-    <ClCompile Include="src\TextEditing.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="src\Account.h" />
-    <ClInclude Include="src\Menu.h" />
-    <ClInclude Include="src\RegisterLogin.h" />
-    <ClInclude Include="src\TextEditing.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <Text Include="src\Accounts.txt" />
-  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

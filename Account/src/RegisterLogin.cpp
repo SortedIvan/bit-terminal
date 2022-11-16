@@ -25,19 +25,6 @@ namespace account {
 	std::tuple<string, string> PromptLogin();
 	bool CheckCredentials(string username, string password, std::vector<string> credentials);
 
-	//int main()
-	//{
-	//	StartUpBitTerminal();
-	//	Register("Vankata", "12345");
-	//	std::tuple<string, string> credentials = PromptLogin();
-
-	//	if (Login(std::get<0>(credentials), std::get<1>(credentials))) {
-	//		cout << "Login succesful";
-	//		return 0;
-	//	}
-	//	cout << "Login unsuccesful";
-	//	return 0;
-	//}
 
 	int GetStringLen(string string_to_read)
 	{
@@ -175,6 +162,19 @@ namespace account {
 			id += (char)GenerateRandomAsciiAlphabet();
 		}
 		return id;
+	}
+
+	std::tuple<std::string, std::string> PromptRegister()
+	{
+		string username = "";
+		string password = "";
+		std::tuple <string, string> credentials;
+		cout << "Enter username: ";
+		cin >> username;
+		cout << "Enter password: ";
+		cin >> password;
+		credentials = std::make_tuple(username, password);
+		return credentials;
 	}
 }
 
