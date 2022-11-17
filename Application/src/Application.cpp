@@ -55,13 +55,15 @@ int main() {
 		login_attempt_counter--;
 	}
 
-	account::ClearTerminal();
+	editor::EditFile("Hello.txt");
+	//account::ClearTerminal();
 	cout << "YAY";
 	return 0;
 }
 
 // Helper functions
 void Sleep(int amount, TimeType type_of_time) {
+
 	switch (type_of_time) {
 		case MILI:
 			std::this_thread::sleep_for(std::chrono::milliseconds(amount));
