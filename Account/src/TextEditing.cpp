@@ -35,23 +35,32 @@ namespace editor // Text editor namespace
 		string path = R"(.\\TextFolder\\)";
 		std::ofstream file;
 		string compare_path = R"(\\\\TextFolder\\\\)";
-
 		file.open(path + file_name);
 		file_is_being_editted = true;
-		cout << "Editing file: " << file_name << std::endl;
+		string file_content = "";
+		string line = "";
+		cout << std::endl << "Editing file: " << file_name << std::endl;
+		cout << "Please press SHIFT + ENTER to save your file." << std::endl;
+
 		while (file_is_being_editted) {
+
 			if (GetAsyncKeyState(VK_LSHIFT))
 			{
 				printf("File has been saved. \n");
+				file << file_content;
 				file.close();
 				file_is_being_editted = false;
-				continue;
+				break;
 			}
-			file << PromptEditText();
+			do {
+				std::getline(std::cin, line);
+				file_content += line + '\n';
+			} while (line.length() != 0);
+			line = "";
+			//file << PromptEditText() << std::endl;
 		}
 
-	}
-	void SaveFile() {
+
 
 	}
 
